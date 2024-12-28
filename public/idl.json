@@ -1,0 +1,25 @@
+{
+    "version": "0.1.0",
+    "name": "donation_events",
+    "instructions": [
+      {
+        "name": "recordDonation",
+        "accounts": [
+          {
+            "name": "donor",
+            "isMut": false,
+            "isSigner": true
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "address": "5TAN9LBwzdsnBhS9knmHud2Z8hxczQ6j8tKQUGojxpGZ"
+    }
+  }
