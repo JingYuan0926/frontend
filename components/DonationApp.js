@@ -162,7 +162,7 @@ export default function DonationApp() {
           <CardBody className="text-center py-8 px-12">
             <p className="text-white mb-2">Please connect your wallet to make a donation</p>
             <span className="text-gray-400 text-sm">
-              Click the "Select Wallet" button above
+              Click the &quot;Select Wallet&quot; button above
             </span>
           </CardBody>
         </Card>
