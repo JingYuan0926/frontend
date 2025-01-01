@@ -136,7 +136,7 @@ export default function DonationApp() {
                 <p className="text-gray-300 leading-relaxed text-lg">
                   Help SpaceX revolutionize space travel with the development of Starship,
                   the most powerful rocket ever built. Your contribution will directly support
-                  the advancement of reusable rocket technology and humanity's journey to Mars.
+                  the advancement of reusable rocket technology and humanity&apos;s journey to Mars.
                 </p>
 
                 <div className="relative p-[1px] rounded-xl overflow-hidden">
@@ -223,7 +223,7 @@ export default function DonationApp() {
                   <CardBody className="text-center py-8 px-12">
                     <p className="text-white mb-2">Please connect your wallet to contribute</p>
                     <span className="text-gray-400 text-sm">
-                      Click the "Select Wallet" button above
+                      Click the &quot;Select Wallet&quot; button above
                     </span>
                   </CardBody>
                 </Card>
