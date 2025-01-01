@@ -1,5 +1,11 @@
 import DonationApp from "@/components/DonationApp";
+import Navbar from "@/components/Navbar";
 
-export default function Donation() {
-  return <DonationApp />;
+export default function DonatePage() {
+  return (
+    <>
+      <Navbar />
+      <DonationApp />
+    </>
+  );
 } 
