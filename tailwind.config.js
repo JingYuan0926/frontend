@@ -20,6 +20,7 @@ module.exports = {
   			marquee: 'marquee var(--duration) infinite linear',
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
   			'fade-in': 'fadeIn 1s ease-in forwards',
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
   		},
   		keyframes: {
   			meteor: {
@@ -86,9 +87,18 @@ module.exports = {
   				}
   			},
   			fadeIn: {
-  				'0%': { opacity: '0' },
-  				'100%': { opacity: '1' },
+  				'0%': {
+  					opacity: '0'
+  				},
+  				'100%': {
+  					opacity: '1'
+  				}
   			},
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
+  				}
+  			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

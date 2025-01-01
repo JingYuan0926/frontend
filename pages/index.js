@@ -4,36 +4,29 @@ import { Button, Card, CardBody } from "@nextui-org/react";
 import HyperText from "@/components/ui/hyper-text";
 import Marquee from "@/components/ui/marquee";
 import { motion } from "framer-motion";
-
-const testimonials = [
-  {
-    name: "Vitalik Buterin",
-    username: "@VitalikButerin",
-    body: "Amazing to see such innovative donation platforms being built on blockchain.",
-    img: "https://avatar.vercel.sh/vitalik"
-  },
-  {
-    name: "Anatoly Yakovenko",
-    username: "@aeyakovenko",
-    body: "This is exactly what we envisioned for Solana - fast, efficient donation systems.",
-    img: "https://avatar.vercel.sh/anatoly"
-  },
-  {
-    name: "Raj Gokal",
-    username: "@RajGokal",
-    body: "The future of charitable giving is here. Transparent and instant.",
-    img: "https://avatar.vercel.sh/raj"
-  },
-  {
-    name: "SBF",
-    username: "@SBF_FTX",
-    body: "Revolutionary approach to charitable donations on Solana.",
-    img: "https://avatar.vercel.sh/sbf"
-  }
-];
+import { VelocityScroll } from "@/components/ui/scroll-based-velocity";
+import { companies } from "@/data/companies";
+import { testimonials } from "@/data/testimonials";
+import Footer from "../components/Footer";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import NumberTicker from "@/components/ui/number-ticker";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 const firstRow = testimonials.slice(0, testimonials.length / 2);
 const secondRow = testimonials.slice(testimonials.length / 2);
+
+// First, let's create a reusable styled header component
+const SectionHeader = ({ children }) => (
+  <motion.h2 
+    className="text-3xl md:text-4xl font-bold mb-8 px-4 text-center bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default"
+    whileHover={{ y: -5 }}
+    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+  >
+    {children}
+  </motion.h2>
+);
 
 export default function Home() {
   return (
@@ -86,12 +79,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Why Choose Us Section */}
+      <section className="py-16 bg-black">
+        <div className="container mx-auto px-4">
+          <SectionHeader>Why Choose Us</SectionHeader>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Transparent",
+                description: "All donations are recorded on the Solana blockchain for complete transparency",
+                icon: (
+                  <motion.img 
+                    src="/transparent.png"
+                    alt="Transparent"
+                    className="w-[220px] h-[220px] mx-auto mb-4"
+                    animate={{ y: [-10, 10] }}
+                    transition={{
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      duration: 2
+                    }}
+                  />
+                )
+              },
+              {
+                title: "Secure",
+                description: "Built on Solana's secure and fast blockchain technology",
+                icon: (
+                  <div className="w-[420px] h-[220px] mx-auto mb-4">
+                    <DotLottieReact
+                      src="https://lottie.host/53e25ad3-7bee-4e70-8671-0eb87bf4a124/ZsOGequA1R.lottie"
+                      loop
+                      autoplay
+                    />
+                  </div>
+                )
+              },
+              {
+                title: "Instant",
+                description: "Donations are processed instantly with minimal transaction fees",
+                icon: (
+                  <motion.img 
+                    src="/lightning.png"
+                    alt="Instant"
+                    className="w-[220px] h-[220px] mx-auto mb-4"
+                    animate={{ y: [-10, 10] }}
+                    transition={{
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      duration: 2
+                    }}
+                  />
+                )
+              }
+            ].map((feature, index) => (
+              <Card key={index} className="bg-black/40 backdrop-blur-md border-white/10">
+                <CardBody className="text-center p-6">
+                  {feature.icon}
+                  <h3 className="text-2xl font-bold mb-2 text-white">{feature.title}</h3>
+                  <p className="text-gray-300">{feature.description}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section with Marquee */}
       <section className="py-12 bg-black">
         <div className="container mx-auto">
-          <div className="max-w-[1200px] mx-auto mb-8">
-            
-          </div>
+          <SectionHeader>What Others Say</SectionHeader>
           
           <div className="mt-8">
             <Marquee pauseOnHover className="[--duration:40s]">
@@ -101,11 +158,13 @@ export default function Home() {
                   className="mx-4 w-[300px] rounded-xl border border-purple-500/20 bg-black/50 p-4 backdrop-blur-sm"
                 >
                   <div className="flex items-center gap-4">
-                    <img
-                      src={review.img}
-                      alt={review.name}
-                      className="h-10 w-10 rounded-full"
-                    />
+                    <div className="h-10 w-10 flex-shrink-0">
+                      <img
+                        src={review.img}
+                        alt={review.name}
+                        className="h-full w-full rounded-full object-cover"
+                      />
+                    </div>
                     <div>
                       <h3 className="text-white font-medium">{review.name}</h3>
                       <p className="text-purple-300 text-sm">{review.username}</p>
@@ -123,11 +182,13 @@ export default function Home() {
                   className="mx-4 w-[300px] rounded-xl border border-purple-500/20 bg-black/50 p-4 backdrop-blur-sm"
                 >
                   <div className="flex items-center gap-4">
-                    <img
-                      src={review.img}
-                      alt={review.name}
-                      className="h-10 w-10 rounded-full"
-                    />
+                    <div className="h-10 w-10 flex-shrink-0">
+                      <img
+                        src={review.img}
+                        alt={review.name}
+                        className="h-full w-full rounded-full object-cover"
+                      />
+                    </div>
                     <div>
                       <h3 className="text-white font-medium">{review.name}</h3>
                       <p className="text-purple-300 text-sm">{review.username}</p>
@@ -141,34 +202,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="relative py-12 bg-transparent z-[2]">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Data Overview Section */}
+      <section className="py-16 bg-black/95">
+        <div className="container mx-auto">
+          <SectionHeader>Data Overview</SectionHeader>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto px-4">
             {[
               {
-                title: "Transparent",
-                description: "All donations are recorded on the Solana blockchain for complete transparency"
+                label: "UNIQUE ACTIVE USERS",
+                value: 2418127
               },
               {
-                title: "Secure",
-                description: "Built on Solana's secure and fast blockchain technology"
+                label: "DAILY ACTIVE USERS",
+                value: 243384
               },
               {
-                title: "Instant",
-                description: "Donations are processed instantly with minimal transaction fees"
+                label: "TOTAL MONEY RAISED",
+                value: 40007
+              },
+              {
+                label: "TOTAL UNIQUE CHARITY",
+                value: 72503
               }
-            ].map((feature, index) => (
-              <Card key={index} className="bg-black/40 backdrop-blur-md border-white/10">
-                <CardBody className="text-center p-6">
-                  <h3 className="text-2xl font-bold mb-2 text-white">{feature.title}</h3>
-                  <p className="text-gray-300">{feature.description}</p>
-                </CardBody>
-              </Card>
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                className="relative p-8 rounded-xl border border-purple-500/20 bg-black/50 backdrop-blur-sm overflow-hidden"
+                whileHover={{ y: -5, borderColor: "rgba(168, 85, 247, 0.4)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <p className="text-orange-400 text-sm font-mono mb-3 relative z-10">{stat.label}</p>
+                <div className="text-5xl font-bold text-white mb-3 font-mono relative z-10">
+                  {stat.label.includes("TOTAL MONEY RAISED") ? '+' : ''}
+                  {stat.label.includes("DAILY ACTIVE USERS") ? '+' : ''}
+                  <span className="text-white">
+                    <NumberTicker value={stat.value} />
+                  </span>
+                  {stat.label.includes("TOTAL MONEY RAISED", "TOTAL UNIQUE CHARITY") ? 'M' : ''}
+                </div>
+                <BorderBeam 
+                  size={300} 
+                  duration={8} 
+                  delay={index * 2}
+                  colorFrom="#FF6B6B"  // Orange-red
+                  colorVia="#4F46E5"   // Blue
+                  colorTo="#9333EA"    // Purple
+                  className="opacity-70"
+                />
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Companies Section */}
+      <section className="py-16 bg-black/90">
+        <div className="container mx-auto">
+          <SectionHeader>Companies That Use Us</SectionHeader>
+          
+          <Marquee pauseOnHover className="[--duration:40s]">
+            {companies.map((company) => (
+              <a 
+                key={company.name}
+                href={company.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-8 hover:opacity-75 transition-opacity"
+              >
+                <img
+                  src={company.logo}
+                  alt={company.name}
+                  className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                />
+              </a>
+            ))}
+          </Marquee>
+        </div>
+      </section>
+
+      <Footer />
     </div>
+    
   );
 }
