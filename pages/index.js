@@ -27,6 +27,37 @@ const SectionHeader = ({ children }) => (
   </motion.h2>
 );
 
+// Add this new component at the top level of the file, after the SectionHeader component
+const ScrollIndicator = () => (
+  <div className="absolute bottom-0 left-0 right-0 w-full flex flex-col items-center justify-center mb-6">
+    <motion.div 
+      className="cursor-pointer"
+      animate={{ y: [0, 10, 0] }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      <svg 
+        width="40" 
+        height="40" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        className="text-white/50 hover:text-white/70 transition-colors"
+      >
+        <path 
+          d="M7 10L12 15L17 10" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+      </svg>
+    </motion.div>
+  </div>
+);
+
 export default function Home() {
   const isLargeScreen = useScreenSize();
 
@@ -46,38 +77,8 @@ export default function Home() {
             <source src="/video.mp4" type="video/mp4" />
           </video>
           
-          {/* Scroll Indicator Arrow */}
-          <motion.div 
-            className="fixed left-[50%] bottom-[10%] -translate-x-1/2 cursor-pointer z-20"
-            animate={{ y: [0, 10, 0] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{ 
-              maxBottom: 'calc(100vh - 60px)',
-              transform: 'translateX(-50%)',
-              margin: '0 auto',
-              width: 'fit-content'
-            }}
-          >
-            <svg 
-              width="40" 
-              height="40" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              className="text-white/50 hover:text-white/70 transition-colors"
-            >
-              <path 
-                d="M7 10L12 15L17 10" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.div>
+          {/* Updated Scroll Indicator Arrow */}
+          <ScrollIndicator />
         </section>
       ) : (
         // Smaller screen version
@@ -102,38 +103,8 @@ export default function Home() {
               </video>
             </div>
 
-            {/* Scroll Indicator Arrow */}
-            <motion.div 
-              className="fixed left-[50%] bottom-[10%] -translate-x-1/2 cursor-pointer z-20"
-              animate={{ y: [0, 10, 0] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              style={{ 
-                maxBottom: 'calc(100vh - 60px)',
-                transform: 'translateX(-50%)',
-                margin: '0 auto',
-                width: 'fit-content'
-              }}
-            >
-              <svg 
-                width="40" 
-                height="40" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className="text-white/50 hover:text-white/70 transition-colors"
-              >
-                <path 
-                  d="M7 10L12 15L17 10" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </motion.div>
+            {/* Updated Scroll Indicator Arrow */}
+            <ScrollIndicator />
           </section>
         </div>
       )}
