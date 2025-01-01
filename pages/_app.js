@@ -15,10 +15,10 @@ export default function App({ Component, pageProps }) {
     >
       <NextUIProvider>
         <WalletContextProvider>
-          <div className="min-h-screen w-screen relative antialiased bg-gradient-to-br from-black to-black/90 overflow-x-hidden max-w-[100vw]">
+          <div className="min-h-screen w-full relative antialiased bg-gradient-to-br from-black to-black/90">
             <ParticleBackground />
             <div className="relative z-[1]">
-              <main className="flex min-h-screen flex-col items-center max-w-[100vw]">
+              <main className="flex min-h-screen flex-col items-center">
                 <Component {...pageProps} />
               </main>
             </div>

@@ -11,6 +11,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 import NumberTicker from "@/components/ui/number-ticker";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { useScreenSize } from '@/components/hooks/useScreenSize';
 
 const firstRow = testimonials.slice(0, testimonials.length / 2);
 const secondRow = testimonials.slice(testimonials.length / 2);
@@ -27,55 +28,103 @@ const SectionHeader = ({ children }) => (
 );
 
 export default function Home() {
+  const isLargeScreen = useScreenSize();
+
   return (
     <div className="flex flex-col overflow-x-hidden">
-      {/* Hero Section - Video Only */}
-      <section className="relative h-[80vh] sm:h-screen w-full overflow-hidden">
-        <div className="absolute inset-0">
+      {isLargeScreen ? (
+        // Large screen version
+        <section className="relative h-screen w-screen overflow-hidden">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
-              maxWidth: '100%',
-              maxHeight: '100%'
-            }}
+            className="absolute top-0 left-0 w-screen h-screen object-cover"
+            style={{ minWidth: '100vw', minHeight: '100vh' }}
           >
             <source src="/video.mp4" type="video/mp4" />
           </video>
-        </div>
-
-        {/* Add Scroll Indicator Arrow */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <svg 
-            width="40" 
-            height="40" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            className="text-white/50 hover:text-white/70 transition-colors"
+          
+          {/* Scroll Indicator Arrow */}
+          <motion.div 
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
+            animate={{ y: [0, 10, 0] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           >
-            <path 
-              d="M7 10L12 15L17 10" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
-      </section>
+            <svg 
+              width="40" 
+              height="40" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              className="text-white/50 hover:text-white/70 transition-colors"
+            >
+              <path 
+                d="M7 10L12 15L17 10" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.div>
+        </section>
+      ) : (
+        // Smaller screen version
+        <div className="flex flex-col">
+          <section className="relative h-screen w-full overflow-hidden">
+            <div className="absolute inset-0">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute w-full h-full"
+                style={{
+                  objectFit: 'none',
+                  objectPosition: 'center center',
+                  transform: 'scale(1)',
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <source src="/video.mp4" type="video/mp4" />
+              </video>
+            </div>
+
+            {/* Scroll Indicator Arrow */}
+            <motion.div 
+              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
+              animate={{ y: [0, 10, 0] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <svg 
+                width="40" 
+                height="40" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                className="text-white/50 hover:text-white/70 transition-colors"
+              >
+                <path 
+                  d="M7 10L12 15L17 10" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.div>
+          </section>
+        </div>
+      )}
 
       {/* Text Reveal Section */}
       <section className="relative w-full bg-black/90 flex flex-col items-center justify-center py-20">
@@ -98,7 +147,7 @@ export default function Home() {
                 startOnView={true}
                 animateOnHover={true}
               >
-                CHARITABLE GIVING
+                CROWDFUNDING 
               </HyperText>
               <HyperText
                 className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent leading-tight"
@@ -197,7 +246,7 @@ export default function Home() {
                 title: "Instant",
                 description: (
                   <>
-                    Donations are processed instantly
+                    Crowdfunding are processed instantly
                     <br className="block" />
                     with minimal transaction fees
                   </>
