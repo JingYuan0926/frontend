@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
-import { Connection, PublicKey, clusterApiUrl, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { Program, AnchorProvider, BN } from "@project-serum/anchor";
+import { Connection, PublicKey, clusterApiUrl, LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
+import { Program, AnchorProvider, BN, web3 } from "@project-serum/anchor";
 import { useWallet } from '@solana/wallet-adapter-react';
-import { Button, Card, CardBody, Input, Progress } from "@nextui-org/react";
+import { Button, Card, CardBody, Input, Progress, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import IDL from "../public/idl.json";
 import { FiExternalLink } from 'react-icons/fi';
+import Lottie from "lottie-react";
+import successAnimation from "../public/lottie.json";
 import Navbar from "../components/Navbar";
 import dynamic from 'next/dynamic';
 const ParticleBackground = dynamic(() => import('@/components/ParticleBackground'), { ssr: false });
 
-const PROGRAM_ID = new PublicKey("5TAN9LBwzdsnBhS9knmHud2Z8hxczQ6j8tKQUGojxpGZ");
+const PROGRAM_ID = new PublicKey("HPHXtE7dhKP8R1iANQeTZiSFpYcpzmqjBz1CTTunfj4K");
 
 export default function DonationApp() {
   const wallet = useWallet();
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [contributions, setContributions] = useState([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [transactionHash, setTransactionHash] = useState("");
 
   // Campaign details
   const campaignGoal = 1000; // 1000 SOL
@@ -79,15 +83,24 @@ export default function DonationApp() {
       const program = getProgram();
       const contributionAmount = new BN(parseFloat(amount) * LAMPORTS_PER_SOL);
 
-      await program.methods
+      // Get the PDA for the vault
+      const [vaultPDA] = PublicKey.findProgramAddressSync(
+        [Buffer.from("donation_vault")],
+        PROGRAM_ID
+      );
+
+      const tx = await program.methods
         .recordDonation(contributionAmount)
         .accounts({
           donor: wallet.publicKey,
+          vault: vaultPDA,
+          systemProgram: SystemProgram.programId,
         })
         .rpc();
 
       setAmount("");
-      alert("Contribution recorded successfully!");
+      setTransactionHash(tx);
+      setShowSuccessModal(true);
       await fetchContributionEvents();
     } catch (error) {
       console.error("Error recording contribution:", error);
@@ -130,8 +143,8 @@ export default function DonationApp() {
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 animate-pulse" />
                   <div className="relative backdrop-blur-sm rounded-xl p-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Raised</span>
-                      <span className="text-white font-semibold">{currentAmount.toFixed(2)} SOL of {campaignGoal} SOL</span>
+                      <span className="text-white">Raised</span>
+                      <span className="text-white font-semibold">{currentAmount.toFixed(5)} SOL of {campaignGoal} SOL</span>
                     </div>
                     <Progress
                       value={progressPercentage}
@@ -164,10 +177,25 @@ export default function DonationApp() {
                         <Input
                           type="number"
                           value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            // Remove any non-numeric characters except decimal point
+                            const numericValue = value.replace(/[^\d.]/g, '');
+                            
+                            // Ensure only one decimal point
+                            const parts = numericValue.split('.');
+                            if (parts.length > 2) {
+                              return;
+                            }
+                            
+                            setAmount(numericValue);
+                          }}
                           placeholder="Amount in SOL"
-                          min="0"
-                          step="0.1"
+                          endContent={
+                            <div className="pointer-events-none flex items-center">
+                              <span className="text-default-400 text-small">SOL</span>
+                            </div>
+                          }
                           className="flex-1"
                           classNames={{
                             input: "bg-black/20 text-white",
@@ -176,8 +204,12 @@ export default function DonationApp() {
                         />
                         <Button
                           onClick={contribute}
-                          disabled={loading || !amount}
-                          className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white font-semibold"
+                          disabled={loading || !amount || parseFloat(amount) <= 0}
+                          className={`text-white font-semibold ${
+                            loading || !amount || parseFloat(amount) <= 0
+                              ? "bg-gradient-to-tr from-pink-900 to-yellow-900 opacity-50 cursor-not-allowed"
+                              : "bg-gradient-to-tr from-pink-500 to-yellow-500"
+                          }`}
                           isLoading={loading}
                         >
                           {loading ? "Processing..." : "Contribute"}
@@ -220,7 +252,7 @@ export default function DonationApp() {
                             </div>
                             <div className="flex items-center gap-2">
                               <span className="text-white font-semibold">
-                                {(record.amount.toString() / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                                {(record.amount.toString() / LAMPORTS_PER_SOL).toFixed(5)} SOL
                               </span>
                               <a
                                 href={`https://explorer.solana.com/tx/${record.signature}?cluster=devnet`}
@@ -246,6 +278,60 @@ export default function DonationApp() {
           </div>
         </div>
       </div>
+      
+      <Modal 
+        isOpen={showSuccessModal} 
+        onClose={() => setShowSuccessModal(false)}
+        size="md"
+        hideCloseButton={true}
+        isDismissable={false}
+        classNames={{
+          backdrop: "backdrop-blur-sm",
+          base: "border border-white/20 bg-black",
+        }}
+      >
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1 text-white">
+            Transaction Successful
+          </ModalHeader>
+          <ModalBody className="flex flex-col items-center py-6">
+            <div className="w-32 h-32 mb-4">
+              <Lottie
+                animationData={successAnimation}
+                loop={false}
+                autoplay={true}
+              />
+            </div>
+            <p className="text-white text-center mb-4">
+              Your contribution has been recorded successfully!
+            </p>
+            <div className="bg-white/10 p-3 rounded-lg w-full">
+              <p className="text-sm text-gray-400">Transaction Hash:</p>
+              <div className="flex items-center gap-2">
+                <p className="text-white text-sm font-mono break-all">
+                  {transactionHash}
+                </p>
+                <a
+                  href={`https://explorer.solana.com/tx/${transactionHash}?cluster=devnet`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <FiExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 text-white font-semibold w-full"
+              onPress={() => setShowSuccessModal(false)}
+            >
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 } 
