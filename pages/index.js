@@ -227,7 +227,7 @@ export default function Home() {
                 title: "Secure",
                 description: (
                   <>
-                    Built on Solana's secure and
+                    Built on Solana&apos;s secure and
                     <br className="block" />
                     fast blockchain technology
                   </>
