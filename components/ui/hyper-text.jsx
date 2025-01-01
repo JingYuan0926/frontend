@@ -1,11 +1,20 @@
-"use client";;
+"use client";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const DEFAULT_CHARACTER_SET = Object.freeze("ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""));
 
 const getRandomInt = max => Math.floor(Math.random() * max);
+
+// Helper function to convert children to string
+const getTextFromChildren = (children) => {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) return children.join(' ');
+  if (typeof children === 'number') return children.toString();
+  if (children?.props?.children) return children.props.children;
+  return '';
+};
 
 export default function HyperText({
   children,
@@ -18,12 +27,13 @@ export default function HyperText({
   characterSet = DEFAULT_CHARACTER_SET,
   ...props
 }) {
-  const MotionComponent = motion.create(Component, {
-    forwardMotionProps: true,
-  });
+  const MotionComponent = motion(Component);
 
+  const text = getTextFromChildren(children);
+  
   const [displayText, setDisplayText] = useState(() =>
-    children.split(""));
+    text.split("")
+  );
   const [isAnimating, setIsAnimating] = useState(false);
   const iterationCount = useRef(0);
   const elementRef = useRef(null);
@@ -64,8 +74,8 @@ export default function HyperText({
   useEffect(() => {
     if (!isAnimating) return;
 
-    const intervalDuration = duration / (children.length * 2);
-    const maxIterations = children.length;
+    const intervalDuration = duration / (text.length * 2);
+    const maxIterations = text.length;
 
     const interval = setInterval(() => {
       if (iterationCount.current < maxIterations) {
@@ -74,7 +84,7 @@ export default function HyperText({
             letter === " "
               ? letter
               : index <= iterationCount.current
-                ? children[index]
+                ? text[index]
                 : characterSet[getRandomInt(characterSet.length)]));
         iterationCount.current = iterationCount.current + 0.5;
       } else {
@@ -84,21 +94,25 @@ export default function HyperText({
     }, intervalDuration);
 
     return () => clearInterval(interval);
-  }, [children, duration, isAnimating, characterSet]);
+  }, [text, duration, isAnimating, characterSet]);
 
   return (
-    (<MotionComponent
+    <MotionComponent
       ref={elementRef}
       className={cn("overflow-hidden py-2 text-4xl font-bold", className)}
       onMouseEnter={handleAnimationTrigger}
-      {...props}>
+      {...props}
+    >
       <AnimatePresence>
         {displayText.map((letter, index) => (
-          <motion.span key={index} className={cn("font-mono", letter === " " ? "w-3" : "")}>
+          <motion.span 
+            key={index} 
+            className={cn("font-mono inline-block", letter === " " ? "w-2" : "")}
+          >
             {letter.toUpperCase()}
           </motion.span>
         ))}
       </AnimatePresence>
-    </MotionComponent>)
+    </MotionComponent>
   );
 }

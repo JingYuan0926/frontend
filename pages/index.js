@@ -4,13 +4,11 @@ import { Button, Card, CardBody } from "@nextui-org/react";
 import HyperText from "@/components/ui/hyper-text";
 import Marquee from "@/components/ui/marquee";
 import { motion } from "framer-motion";
-import { VelocityScroll } from "@/components/ui/scroll-based-velocity";
 import { companies } from "@/data/companies";
 import { testimonials } from "@/data/testimonials";
 import Footer from "../components/Footer";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+
 import NumberTicker from "@/components/ui/number-ticker";
 import { BorderBeam } from "@/components/ui/border-beam";
 
@@ -32,16 +30,24 @@ export default function Home() {
   return (
     <div className="flex flex-col overflow-x-hidden">
       {/* Hero Section - Video Only */}
-      <section className="relative h-[80vh] sm:h-screen w-screen overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
-        >
-          <source src="/video.mp4" type="video/mp4" />
-        </video>
+      <section className="relative h-[80vh] sm:h-screen w-full overflow-hidden">
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+              maxWidth: '100%',
+              maxHeight: '100%'
+            }}
+          >
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+        </div>
 
         {/* Add Scroll Indicator Arrow */}
         <motion.div 
@@ -74,16 +80,50 @@ export default function Home() {
       {/* Text Reveal Section */}
       <section className="relative w-full bg-black/90 flex flex-col items-center justify-center py-20">
         <div className="max-w-[1200px] mx-auto text-center">
-          <div className="text-2xl sm:text-4xl md:text-6xl font-bold px-4">
-            <HyperText
-              className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent"
-              duration={800}
-              delay={0}
-              startOnView={true}
-              animateOnHover={true}
-            >
-              The Future of Charitable Giving on Solana
-            </HyperText>
+          <div className="text-2xl sm:text-4xl md:text-6xl font-bold px-4 max-w-[90vw] sm:max-w-full">
+            <div className="block sm:hidden space-y-2">
+              <HyperText
+                className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent leading-tight"
+                duration={800}
+                delay={0}
+                startOnView={true}
+                animateOnHover={true}
+              >
+                THE FUTURE OF
+              </HyperText>
+              <HyperText
+                className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent leading-tight"
+                duration={800}
+                delay={200}
+                startOnView={true}
+                animateOnHover={true}
+              >
+                CHARITABLE GIVING
+              </HyperText>
+              <HyperText
+                className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent leading-tight"
+                duration={800}
+                delay={400}
+                startOnView={true}
+                animateOnHover={true}
+              >
+                ON SOLANA
+              </HyperText>
+            </div>
+            
+            <div className="hidden sm:block">
+              <div className="whitespace-nowrap">
+                <HyperText
+                  className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent leading-tight inline-block"
+                  duration={800}
+                  delay={0}
+                  startOnView={true}
+                  animateOnHover={true}
+                >
+                  THE FUTURE OF CROWDFUNDING ON SOLANA
+                </HyperText>
+              </div>
+            </div>
           </div>
           
           {/* Magic UI Button */}
@@ -94,9 +134,9 @@ export default function Home() {
             className="relative z-[2] mt-8"
           >
             <Link href="/donate">
-              <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+              <button className="relative inline-flex h-10 sm:h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                 <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-8 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 sm:px-8 py-1 text-xs sm:text-sm font-medium text-white backdrop-blur-3xl">
                   Start Donating Now
                 </span>
               </button>
@@ -113,7 +153,13 @@ export default function Home() {
             {[
               {
                 title: "Transparent",
-                description: "All donations are recorded on the Solana blockchain for complete transparency",
+                description: (
+                  <>
+                    All transactions are recorded on the
+                    <br className="block" />
+                    Solana blockchain for complete transparency
+                  </>
+                ),
                 icon: (
                   <motion.img 
                     src="/transparent.png"
@@ -130,7 +176,13 @@ export default function Home() {
               },
               {
                 title: "Secure",
-                description: "Built on Solana's secure and fast blockchain technology",
+                description: (
+                  <>
+                    Built on Solana's secure and
+                    <br className="block" />
+                    fast blockchain technology
+                  </>
+                ),
                 icon: (
                   <div className="w-[420px] h-[220px] mx-auto mb-4">
                     <DotLottieReact
@@ -143,7 +195,13 @@ export default function Home() {
               },
               {
                 title: "Instant",
-                description: "Donations are processed instantly with minimal transaction fees",
+                description: (
+                  <>
+                    Donations are processed instantly
+                    <br className="block" />
+                    with minimal transaction fees
+                  </>
+                ),
                 icon: (
                   <motion.img 
                     src="/lightning.png"
@@ -163,7 +221,9 @@ export default function Home() {
                 <CardBody className="text-center p-3 sm:p-6">
                   {feature.icon}
                   <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-300">{feature.description}</p>
+                  <p className="text-sm sm:text-base text-gray-300 leading-tight">
+                    {feature.description}
+                  </p>
                 </CardBody>
               </Card>
             ))}
@@ -233,7 +293,7 @@ export default function Home() {
         <div className="container mx-auto">
           <SectionHeader>Data Overview</SectionHeader>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto px-2 sm:px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-[90vw] sm:max-w-4xl mx-auto px-2 sm:px-4">
             {[
               {
                 label: "UNIQUE ACTIVE USERS",
@@ -254,12 +314,12 @@ export default function Home() {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                className="relative p-4 sm:p-8 rounded-xl border border-purple-500/20 bg-black/50 backdrop-blur-sm overflow-hidden"
+                className="relative p-4 sm:p-8 rounded-xl border border-purple-500/20 bg-black/50 backdrop-blur-sm overflow-hidden w-full mx-auto"
                 whileHover={{ y: -5, borderColor: "rgba(168, 85, 247, 0.4)" }}
                 transition={{ duration: 0.2 }}
               >
-                <p className="text-xs sm:text-sm font-mono mb-2 sm:mb-3 relative z-10">{stat.label}</p>
-                <div className="text-3xl sm:text-5xl font-bold text-white mb-2 sm:mb-3 font-mono relative z-10">
+                <p className="text-[10px] sm:text-sm font-mono mb-2 sm:mb-3 relative z-10 text-center">{stat.label}</p>
+                <div className="text-2xl sm:text-5xl font-bold text-white mb-2 sm:mb-3 font-mono relative z-10 text-center">
                   {stat.label.includes("TOTAL MONEY RAISED") ? '+' : ''}
                   {stat.label.includes("DAILY ACTIVE USERS") ? '+' : ''}
                   <span className="text-white">
@@ -271,9 +331,9 @@ export default function Home() {
                   size={300} 
                   duration={8} 
                   delay={index * 2}
-                  colorFrom="#FF6B6B"  // Orange-red
-                  colorVia="#4F46E5"   // Blue
-                  colorTo="#9333EA"    // Purple
+                  colorFrom="#FF6B6B"
+                  colorVia="#4F46E5"
+                  colorTo="#9333EA"
                   className="opacity-70"
                 />
               </motion.div>
@@ -285,7 +345,7 @@ export default function Home() {
       {/* Companies Section */}
       <section className="py-16 bg-black/90">
         <div className="container mx-auto">
-          <SectionHeader>Companies That Use Us</SectionHeader>
+          <SectionHeader>Companies That Use Us for Crowdfunding</SectionHeader>
           
           <Marquee pauseOnHover className="[--duration:40s]">
             {companies.map((company) => (
