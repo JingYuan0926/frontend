@@ -27,6 +27,8 @@ const ParticleBackground = () => {
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       rendererRef.current = renderer;
 
+      // Ensure renderer covers full viewport
+      renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       mountRef.current.appendChild(renderer.domElement);
 
@@ -78,6 +80,7 @@ const ParticleBackground = () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+        rendererRef.current.setPixelRatio(window.devicePixelRatio);
       };
 
       window.addEventListener('resize', handleResize);
@@ -99,7 +102,7 @@ const ParticleBackground = () => {
     initScene();
   }, [isMounted]);
 
-  return <div ref={mountRef} className="absolute inset-0 z-0" />;
+  return <div ref={mountRef} className="fixed inset-0 w-full h-full" style={{ minHeight: '100vh' }} />;
 };
 
 export default dynamic(() => Promise.resolve(ParticleBackground), { ssr: false }); 
