@@ -5,11 +5,11 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { Button, Card, CardBody, Input, Progress, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import IDL from "../public/idl.json";
 import { FiExternalLink } from 'react-icons/fi';
-import Lottie from "lottie-react";
-import successAnimation from "../public/lottie.json";
-import Navbar from "../components/Navbar";
 import dynamic from 'next/dynamic';
 const ParticleBackground = dynamic(() => import('@/components/ParticleBackground'), { ssr: false });
+const SuccessAnimation = dynamic(() => import('@/components/SuccessAnimation'), { 
+  ssr: false 
+});
 
 const PROGRAM_ID = new PublicKey("HPHXtE7dhKP8R1iANQeTZiSFpYcpzmqjBz1CTTunfj4K");
 
@@ -295,13 +295,7 @@ export default function DonationApp() {
             Transaction Successful
           </ModalHeader>
           <ModalBody className="flex flex-col items-center py-6">
-            <div className="w-32 h-32 mb-4">
-              <Lottie
-                animationData={successAnimation}
-                loop={false}
-                autoplay={true}
-              />
-            </div>
+            <SuccessAnimation />
             <p className="text-white text-center mb-4">
               Your contribution has been recorded successfully!
             </p>
