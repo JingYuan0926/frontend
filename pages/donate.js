@@ -6,6 +6,7 @@ import { Button, Card, CardBody, Input, Progress, Modal, ModalContent, ModalHead
 import IDL from "../public/idl.json";
 import { FiExternalLink } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
+import Navbar from "../components/Navbar";
 const ParticleBackground = dynamic(() => import('@/components/ParticleBackground'), { ssr: false });
 const SuccessAnimation = dynamic(() => import('@/components/SuccessAnimation'), { 
   ssr: false 
