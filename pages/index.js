@@ -20,7 +20,7 @@ const secondRow = testimonials.slice(testimonials.length / 2);
 // First, let's create a reusable styled header component
 const SectionHeader = ({ children }) => (
   <motion.h2 
-    className="text-3xl md:text-4xl font-bold mb-8 px-4 text-center bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default"
+    className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-8 px-2 sm:px-4 text-center bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default"
     whileHover={{ y: -5 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
   >
@@ -32,14 +32,13 @@ export default function Home() {
   return (
     <div className="flex flex-col overflow-x-hidden">
       {/* Hero Section - Video Only */}
-      <section className="relative h-screen w-screen overflow-hidden">
+      <section className="relative h-[80vh] sm:h-screen w-screen overflow-hidden">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute top-0 left-0 w-screen h-screen object-cover"
-          style={{ minWidth: '100vw', minHeight: '100vh' }}
+          className="absolute top-0 left-0 w-full h-full object-cover"
         >
           <source src="/video.mp4" type="video/mp4" />
         </video>
@@ -75,7 +74,7 @@ export default function Home() {
       {/* Text Reveal Section */}
       <section className="relative w-full bg-black/90 flex flex-col items-center justify-center py-20">
         <div className="max-w-[1200px] mx-auto text-center">
-          <div className="text-4xl md:text-6xl font-bold">
+          <div className="text-2xl sm:text-4xl md:text-6xl font-bold px-4">
             <HyperText
               className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent"
               duration={800}
@@ -110,7 +109,7 @@ export default function Home() {
       <section className="py-16 bg-black">
         <div className="container mx-auto px-4">
           <SectionHeader>Why Choose Us</SectionHeader>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 px-2 sm:px-4">
             {[
               {
                 title: "Transparent",
@@ -161,10 +160,10 @@ export default function Home() {
               }
             ].map((feature, index) => (
               <Card key={index} className="bg-black/40 backdrop-blur-md border-white/10">
-                <CardBody className="text-center p-6">
+                <CardBody className="text-center p-3 sm:p-6">
                   {feature.icon}
-                  <h3 className="text-2xl font-bold mb-2 text-white">{feature.title}</h3>
-                  <p className="text-gray-300">{feature.description}</p>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-300">{feature.description}</p>
                 </CardBody>
               </Card>
             ))}
@@ -182,10 +181,10 @@ export default function Home() {
               {firstRow.map((review) => (
                 <div
                   key={review.username}
-                  className="mx-4 w-[300px] rounded-xl border border-purple-500/20 bg-black/50 p-4 backdrop-blur-sm"
+                  className="mx-2 sm:mx-4 w-[250px] sm:w-[300px] rounded-xl border border-purple-500/20 bg-black/50 p-3 sm:p-4 backdrop-blur-sm"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 flex-shrink-0">
+                  <div className="flex items-center gap-2 sm:gap-4">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0">
                       <img
                         src={review.img}
                         alt={review.name}
@@ -193,11 +192,11 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <h3 className="text-white font-medium">{review.name}</h3>
-                      <p className="text-purple-300 text-sm">{review.username}</p>
+                      <h3 className="text-white text-sm sm:text-base font-medium">{review.name}</h3>
+                      <p className="text-purple-300 text-xs sm:text-sm">{review.username}</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-gray-300">{review.body}</p>
+                  <p className="mt-2 sm:mt-4 text-xs sm:text-base text-gray-300">{review.body}</p>
                 </div>
               ))}
             </Marquee>
@@ -206,10 +205,10 @@ export default function Home() {
               {secondRow.map((review) => (
                 <div
                   key={review.username}
-                  className="mx-4 w-[300px] rounded-xl border border-purple-500/20 bg-black/50 p-4 backdrop-blur-sm"
+                  className="mx-2 sm:mx-4 w-[250px] sm:w-[300px] rounded-xl border border-purple-500/20 bg-black/50 p-3 sm:p-4 backdrop-blur-sm"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 flex-shrink-0">
+                  <div className="flex items-center gap-2 sm:gap-4">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0">
                       <img
                         src={review.img}
                         alt={review.name}
@@ -217,11 +216,11 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <h3 className="text-white font-medium">{review.name}</h3>
-                      <p className="text-purple-300 text-sm">{review.username}</p>
+                      <h3 className="text-white text-sm sm:text-base font-medium">{review.name}</h3>
+                      <p className="text-purple-300 text-xs sm:text-sm">{review.username}</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-gray-300">{review.body}</p>
+                  <p className="mt-2 sm:mt-4 text-xs sm:text-base text-gray-300">{review.body}</p>
                 </div>
               ))}
             </Marquee>
@@ -234,7 +233,7 @@ export default function Home() {
         <div className="container mx-auto">
           <SectionHeader>Data Overview</SectionHeader>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto px-2 sm:px-4">
             {[
               {
                 label: "UNIQUE ACTIVE USERS",
@@ -255,12 +254,12 @@ export default function Home() {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                className="relative p-8 rounded-xl border border-purple-500/20 bg-black/50 backdrop-blur-sm overflow-hidden"
+                className="relative p-4 sm:p-8 rounded-xl border border-purple-500/20 bg-black/50 backdrop-blur-sm overflow-hidden"
                 whileHover={{ y: -5, borderColor: "rgba(168, 85, 247, 0.4)" }}
                 transition={{ duration: 0.2 }}
               >
-                <p className="text-orange-400 text-sm font-mono mb-3 relative z-10">{stat.label}</p>
-                <div className="text-5xl font-bold text-white mb-3 font-mono relative z-10">
+                <p className="text-xs sm:text-sm font-mono mb-2 sm:mb-3 relative z-10">{stat.label}</p>
+                <div className="text-3xl sm:text-5xl font-bold text-white mb-2 sm:mb-3 font-mono relative z-10">
                   {stat.label.includes("TOTAL MONEY RAISED") ? '+' : ''}
                   {stat.label.includes("DAILY ACTIVE USERS") ? '+' : ''}
                   <span className="text-white">
@@ -295,12 +294,12 @@ export default function Home() {
                 href={company.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mx-8 hover:opacity-75 transition-opacity"
+                className="mx-4 sm:mx-8 hover:opacity-75 transition-opacity"
               >
                 <img
                   src={company.logo}
                   alt={company.name}
-                  className="w-[220px] h-[220px] object-contain transition-all duration-300"
+                  className="w-[150px] h-[150px] sm:w-[220px] sm:h-[220px] object-contain transition-all duration-300"
                 />
               </a>
             ))}
