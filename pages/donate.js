@@ -29,10 +29,8 @@ export default function DonationApp() {
   const progressPercentage = (currentAmount / campaignGoal) * 100;
 
   useEffect(() => {
-    if (wallet.connected) {
-      fetchContributionEvents();
-    }
-  }, [wallet.connected]);
+    fetchContributionEvents();
+  }, []);
 
   const getProgram = () => {
     const connection = new Connection(clusterApiUrl("devnet"));
