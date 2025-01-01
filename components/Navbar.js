@@ -15,7 +15,7 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-8">
           <Link href="/" className="text-xl font-bold text-white/90 hover:text-white transition-colors">
-            Donation dApp
+            SolCrowd
           </Link>
           <div className="hidden sm:flex space-x-6">
           </div>

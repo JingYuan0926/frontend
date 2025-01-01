@@ -10,33 +10,23 @@ export const companies = [
     link: "https://phantom.app"
   },
   {
-    name: "Magic Eden",
-    logo: "/companies/magiceden.png",
-    link: "https://magiceden.io"
-  },
-  {
-    name: "Orca",
-    logo: "/companies/orca.png",
-    link: "https://orca.so"
+    name: "Jupiter",
+    logo: "https://miro.medium.com/v2/resize:fit:1400/1*U62O3nJMjoWai2Ucssf3kw.jpeg",
+    link: "https://jup.ag/"
   },
   {
     name: "Raydium",
-    logo: "/companies/raydium.png",
+    logo: "https://miro.medium.com/v2/resize:fit:910/1*35TwzFHg26cjcp67AP6JoQ.png",
     link: "https://raydium.io"
   },
   {
-    name: "Serum",
-    logo: "/companies/serum.png",
-    link: "https://projectserum.com"
+    name: "Solflare",
+    logo: "https://avatars.githubusercontent.com/u/89903469?s=280&v=4",
+    link: "https://solflare.com/"
+  }, {
+    "name": "Magic Eden",
+    "logo": "https://media.licdn.com/dms/image/v2/D4D12AQHeANw5wRUXNA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1701255802916?e=2147483647&v=beta&t=xsgphS6_WCPR9N5CASQ6Az2_MzzwAzljiPZaQ6LyuVQ",
+    "link": "https://magiceden.io"
   },
-  {
-    name: "Audius",
-    logo: "/companies/audius.png",
-    link: "https://audius.co"
-  },
-  {
-    name: "Brave",
-    logo: "/companies/brave.png",
-    link: "https://brave.com"
-  }
+  
 ]; 

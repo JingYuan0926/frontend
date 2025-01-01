@@ -2,25 +2,25 @@ export const testimonials = [
     {
       "name": "Vitalik Buterin",
       "username": "@VitalikButerin",
-      "body": "We love how this platform makes donations seamless and impactful.",
+      "body": "We love how this platform makes crowdfunding seamless and impactful.",
       "img": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Vitalik_Buterin_TechCrunch_London_2015_%28cropped%29.jpg"
     },
     {
       "name": "Anatoly Yakovenko",
       "username": "@aeyakovenko",
-      "body": "This platform for Solana donations is incredibly efficient and innovative.",
+      "body": "This platform for Solana crowdfunding is incredibly efficient and innovative.",
       "img": "https://techcrunch.com/wp-content/uploads/2023/08/Anatoly-Yakovenko-copy.jpg?w=668"
     },
     {
       "name": "Raj Gokal",
       "username": "@rajgokal",
-      "body": "We are breaking boundaries with this transparent and user-friendly donation system.",
+      "body": "We are breaking boundaries with this transparent and user-friendly crowdfunding system.",
       "img": "https://media.licdn.com/dms/image/v2/C5603AQEZXORkZrZOQg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1606347542256?e=2147483647&v=beta&t=NVgWPzx7SotpOATExIDP84yoa8sV1f634TFNB-PMp80"
     },
     {
       "name": "Lily Liu",
       "username": "@lilyhliu",
-      "body": "This platform exemplifies the growth and potential of Solana donations.",
+      "body": "This platform exemplifies the growth and potential of Solana crowdfunding.",
       "img": "https://d2pasa6bkzkrjd.cloudfront.net/_resize/consensushongkong202/speaker/300/site/consensushongkong202/images/userfiles/speakers/94abf28565562830dd83a6bd238b30db.jpg"
     },
     {

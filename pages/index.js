@@ -273,7 +273,7 @@ export default function Home() {
                 <img
                   src={company.logo}
                   alt={company.name}
-                  className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                  className="w-[220px] h-[220px] object-contain transition-all duration-300"
                 />
               </a>
             ))}
