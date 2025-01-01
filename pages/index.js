@@ -48,14 +48,19 @@ export default function Home() {
           
           {/* Scroll Indicator Arrow */}
           <motion.div 
-            className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2 cursor-pointer z-20"
+            className="fixed left-[50%] bottom-[10%] -translate-x-1/2 cursor-pointer z-20"
             animate={{ y: [0, 10, 0] }}
             transition={{
               duration: 1.5,
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            style={{ maxBottom: 'calc(100vh - 60px)' }}
+            style={{ 
+              maxBottom: 'calc(100vh - 60px)',
+              transform: 'translateX(-50%)',
+              margin: '0 auto',
+              width: 'fit-content'
+            }}
           >
             <svg 
               width="40" 
@@ -99,14 +104,19 @@ export default function Home() {
 
             {/* Scroll Indicator Arrow */}
             <motion.div 
-              className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2 cursor-pointer z-20"
+              className="fixed left-[50%] bottom-[10%] -translate-x-1/2 cursor-pointer z-20"
               animate={{ y: [0, 10, 0] }}
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              style={{ maxBottom: 'calc(100vh - 60px)' }}
+              style={{ 
+                maxBottom: 'calc(100vh - 60px)',
+                transform: 'translateX(-50%)',
+                margin: '0 auto',
+                width: 'fit-content'
+              }}
             >
               <svg 
                 width="40" 
