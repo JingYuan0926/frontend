@@ -394,7 +394,20 @@ export default function Home() {
       {/* Companies Section */}
       <section className="py-16 bg-black/90">
         <div className="container mx-auto">
-          <SectionHeader>Companies That Use Us for Crowdfunding</SectionHeader>
+          <div className="block lg:hidden"> {/* Show on small/medium screens */}
+            <SectionHeader>
+              Companies That Use Us
+            </SectionHeader>
+            <SectionHeader>
+              for Crowdfunding Campaigns
+            </SectionHeader>
+          </div>
+          
+          <div className="hidden lg:block"> {/* Show on large screens */}
+            <SectionHeader>
+              Companies That Use Us for Crowdfunding Campaigns
+            </SectionHeader>
+          </div>
           
           <Marquee pauseOnHover className="[--duration:40s]">
             {companies.map((company) => (
