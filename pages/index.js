@@ -340,7 +340,7 @@ export default function Home() {
                 value: 40007
               },
               {
-                label: "TOTAL UNIQUE CHARITY",
+                label: "TOTAL UNIQUE CROWDFUNDING CAMPAIGNS",
                 value: 72503
               }
             ].map((stat, index) => (
