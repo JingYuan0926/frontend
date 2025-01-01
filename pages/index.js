@@ -48,13 +48,14 @@ export default function Home() {
           
           {/* Scroll Indicator Arrow */}
           <motion.div 
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
+            className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2 cursor-pointer z-20"
             animate={{ y: [0, 10, 0] }}
             transition={{
               duration: 1.5,
               repeat: Infinity,
               ease: "easeInOut"
             }}
+            style={{ maxBottom: 'calc(100vh - 60px)' }}
           >
             <svg 
               width="40" 
@@ -98,13 +99,14 @@ export default function Home() {
 
             {/* Scroll Indicator Arrow */}
             <motion.div 
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
+              className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2 cursor-pointer z-20"
               animate={{ y: [0, 10, 0] }}
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
+              style={{ maxBottom: 'calc(100vh - 60px)' }}
             >
               <svg 
                 width="40" 
@@ -186,7 +188,7 @@ export default function Home() {
               <button className="relative inline-flex h-10 sm:h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                 <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                 <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 sm:px-8 py-1 text-xs sm:text-sm font-medium text-white backdrop-blur-3xl">
-                  Start Donating Now
+                  Start Crowdfunding Now
                 </span>
               </button>
             </Link>

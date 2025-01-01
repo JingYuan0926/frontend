@@ -88,7 +88,7 @@ export default function DonationApp() {
 
   return (
     <div className="flex flex-col gap-8 items-center pt-20">
-      <h1 className="text-4xl font-bold mb-4 text-white">Make a Donation</h1>
+      <h1 className="text-4xl font-bold mb-4 text-white">Contribute Now</h1>
 
       {wallet.connected ? (
         <div className="flex flex-col gap-4 w-full max-w-md">
@@ -160,7 +160,7 @@ export default function DonationApp() {
       ) : (
         <Card className="bg-black/40 backdrop-blur-md border border-white/10">
           <CardBody className="text-center py-8 px-12">
-            <p className="text-white mb-2">Please connect your wallet to make a donation</p>
+            <p className="text-white mb-2">Please connect your wallet to contribute now</p>
             <span className="text-gray-400 text-sm">
               Click the &quot;Select Wallet&quot; button above
             </span>
