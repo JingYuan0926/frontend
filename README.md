@@ -35,3 +35,4 @@ SolCrowd is a decentralized crowdfunding application built on the **Solana block
 - **Smart Contract Program ID:** [**HPHXtE7dhKP8R1iANQeTZiSFpYcpzmqjBz1CTTunfj4K**](https://explorer.solana.com/address/HPHXtE7dhKP8R1iANQeTZiSFpYcpzmqjBz1CTTunfj4K?cluster=devnet)
 - **Wallet Integration:** Solana Wallet Adapter (React UI)  
 - **For blockchain interactions:** Solana Web3js
+- **Smart Contract:** Created with anchor init smartcontract, all the details including the code to the smart contract is in the smartcontract directory
